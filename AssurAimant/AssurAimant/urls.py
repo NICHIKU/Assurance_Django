@@ -20,5 +20,6 @@ from account import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('account.urls')),
     path('', views.home_view, name='home'),
 ]
