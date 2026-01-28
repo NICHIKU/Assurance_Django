@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>{% block title %}Accueil{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur Assur'Aimant</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="#">À propos</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Pourquoi choisir Assur'Aimant ?</h2>
+            <p>Nous offrons des solutions d'assurance adaptées à vos besoins, avec un service client exceptionnel et des tarifs compétitifs. Faites confiance à notre expertise pour protéger ce qui compte le plus pour vous.</p>
+            <div class="cta">
+            </div>
+        </section>
+        <section>
+            <h2>Prédiction des Charges d'Assurance</h2>
+            <p>Chez Assur'Aimant, nous vous offrons la possibilité de créer un compte personnel et de vous connecter pour accéder à notre service exclusif de prédiction des charges d'assurance. Une fois connecté, vous pourrez saisir vos informations personnelles, telles que votre âge, votre statut de fumeur, le nombre d'enfants à charge, votre région, et bien plus encore. Ces informations nous permettront de vous fournir une estimation précise et personnalisée de vos charges d'assurance.</p>
+            <p>Rejoignez-nous dès aujourd'hui pour bénéficier de ce service gratuit et simplifier la gestion de vos assurances !</p>
+            <img src="{% static 'images/assurance_image.png' %}" alt="Image d'assurance" style="display: block; margin: 20px auto; width: 100%; max-width: 600px;">
+        </section>
+    </main>
+    <footer>{% block footer %}
+        <p>&copy; 2026 Assur'Aimant. Tous droits réservés.</p>
+    {% endblock %}
+    </footer>
+</body>
+</html>
