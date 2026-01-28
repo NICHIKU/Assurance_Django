@@ -1,0 +1,14 @@
+{% block title %}Modifier le profil{% endblock title %}
+
+{% block content %}
+<h1>Modifier le profil de {{ user.username }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer les modifications</button>
+</form>
+{% endblock content %}
+
+{% block back %}
+<a href="{% url 'profile' %}">Retour au profil</a>
+{% endblock back %}

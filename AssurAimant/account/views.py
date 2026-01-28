@@ -1,6 +1,64 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
-# Create your views here.
+from django.views import View
+from django.views.generic import DetailView, UpdateView, ListView
+
+from django.urls import reverse_lazy
+
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import get_user_model
+
+
+from .forms import CustomUserForm
+from .forms import ModificationForm
+from .models import CustomUser
+
+
+User = get_user_model()
+
+class UserProfileView(ListView):
+    model = User
+    template_name = 'account/profile.html'
+    context_object_name = 'profile'
+
+class AccountModificationView(UpdateView):
+    model = User
+    form_class = ModificationForm
+    template_name = 'account/profile_modif.html'
+    success_url = reverse_lazy('profile')
+    
+    def get_object(self):
+        return self.request.user
+    
+    def post(self, request):
+        form = ModificationForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        return render(request, 'account/profile_modif.html', {'form': form})
 
 def home_view(request):
     return render(request, 'base.html')
+
+class RegisterView(View):
+    template_name = 'account/register.html'
+    
+    def get(self, request):
+        form = CustomUserForm()
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            user = CustomUser(
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                email=form.cleaned_data['email'],
+                username=form.cleaned_data['email']
+            )
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            
+            return redirect('login')
+        return render(request, self.template_name, {'form': form})

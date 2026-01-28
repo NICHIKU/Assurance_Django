@@ -2,14 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # first_name and last_name included in AbstractUser
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
 
     def __str__(self):
         return self.email
 
 class UserInformation(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE) # The client depends on the user
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE) # The client depends on the user
     bmi = models.FloatField()
     age = models.IntegerField()
     smoker = models.BooleanField()
