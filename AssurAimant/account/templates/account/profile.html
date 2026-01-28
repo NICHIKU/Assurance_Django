@@ -1,0 +1,15 @@
+{% block title %}Profil{% endblock title %}
+
+{% block content %}
+<h1>Profil de {{ user.username }}</h1>
+<p>Email : {{ user.email }}</p>
+<p>Nom complet : {{ user.first_name }} {{ user.last_name }}</p>
+<p>Date d'inscription : {{ user.date_joined }}</p>
+<p>Dernière connexion : {{ user.last_login }}</p>
+{% endblock content %}
+
+{% block modify %}
+
+<a href="{% url 'profile_modif' %}">Modifier le profil</a>
+
+{% endblock modify %}
