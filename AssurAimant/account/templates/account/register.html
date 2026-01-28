@@ -1,0 +1,13 @@
+{% block header %}
+    <h1>Créer un compte</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Créer mon compte</button>
+    </form>
+
+    <div>
+        Vous avez déjà un compte ? <a href="account/login/">Se connecter</a>
+    </div>
+{% endblock %}
