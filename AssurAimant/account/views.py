@@ -33,3 +33,7 @@ class AccountModificationView(UpdateView):
     
 
 
+# Create your views here.
+
+def home_view(request):
+    return render(request, 'base.html')
