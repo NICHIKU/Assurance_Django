@@ -110,6 +110,24 @@ main ul li h3 {
     margin: 20px auto;
     width: 100%;
     max-width: 600px;
+    height: auto;
+    object-fit: contain;
+    -webkit-object-fit: contain;
+    -moz-object-fit: contain;
+    -ms-object-fit: contain;
+    -o-object-fit: contain;
+}
+.assurance-image {
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    object-fit: contain;
+    -webkit-object-fit: contain;
+    -moz-object-fit: contain;
+    -ms-object-fit: contain;
+    -o-object-fit: contain; 
 }
 footer {
     background: #004080;
