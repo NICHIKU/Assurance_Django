@@ -1,10 +1,23 @@
-{% block title %}Profil{% endblock title %}>
+{% extends "base.html" %}
+
+{% block title %}Profil{% endblock title %}
 {% block content %}
-<h1>Profil de {{ user.username }}</h1>
-<p>Email : {{ user.email }}</p>
-<p>Nom complet : {{ user.first_name }} {{ user.last_name }}</p>
-<p>Date d'inscription : {{ user.date_joined }}</p>
-<p>Dernière connexion : {{ user.last_login }}</p>
+
+<dl class="max-w-md text-heading divide-y divide-default">
+    <div class="flex flex-col pb-3">
+        <dt class="mb-1 text-body">Nom Complet</dt>
+        <dd class="text-lg font-medium">{{ user.first_name }} {{ user.last_name }}</dd>
+    </div>
+    <div class="flex flex-col py-3">
+        <dt class="mb-1 text-body">Adresse Mail</dt>
+        <dd class="text-lg font-medium">{{ user.email }}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-body">Date d'inscription</dt>
+        <dd class="text-lg font-medium">{{ user.date_joined }}</dd>
+    </div>
+</dl>
+
 {% endblock content %}
 
 {% block modify %}
