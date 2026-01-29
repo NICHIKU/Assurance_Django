@@ -7,28 +7,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <title>{% block title %}Assur'Aimant{% endblock %}</title>
 </head>
-<body>
-    <header>
-        <h1>Bienvenue sur Assur'Aimant</h1>
+<body class="min-h-screen flex flex-col font-sans bg-[#f4f4f4] text-[#333] leading-relaxed">
+    <header class="bg-[#004080] text-white py-5 text-center shadow-md">
+        <h1 class="text-4xl font-bold mb-6 text-center tracking-tight">Bienvenue sur Assur'Aimant</h1>
         <nav>{% block nav %}
-            <ul>
-                <li><a href="{% url 'home' %}">Accueil</a></li>
-                <li><a href="{% url 'register' %}">Creation de compte</a></li>
-                <li><a href="{% url 'profile' %}">Profile</a></li>
+            <ul class="flex justify-center items-center gap-8 list-none mt-4">
+                <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'home' %}">Accueil</a></li>
+                <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'register' %}">Creation de compte</a></li>
+                <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'profile' %}">Profile</a></li>
             </ul>
         {% endblock %}</nav>
     </header>
-    <main>
+    <main class="flex-grow flex items-center justify-center p-5">
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
+    <footer class="bg-[#004080] text-white text-center py-2.5 shadow-inner mt-auto">
         {% block footer %}  
-            <p>&copy; 2026 Assur'Aimant. Tous droits réservés.</p>
+            <p class="text-sm">&copy; 2026 Assur'Aimant. Tous droits réservés.</p>
         {% endblock %}
     </footer>
 </body>

@@ -1,13 +1,32 @@
-{% block header %}
-    <h1>Créer un compte</h1>
+{% extends "base.html" %}
+{% block content %}
+    
+    <div class="flex flex-col items-center justify-center w-full">
+        
+        <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+            <h1 class="text-3xl font-bold text-center text-slate-800 mb-8">
+                Créer un compte
+            </h1>
+            
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                <div class="text-slate-700">
+                    {{ form.as_p }}
+                </div>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Créer mon compte</button>
-    </form>
+                <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 mt-6">
+                    Créer mon compte
+                </button>
+            </form>
+            
+            <div class="mt-8 pt-6 border-t border-gray-100 text-center">
+                <p class="text-slate-600">
+                    Vous avez déjà un compte ? 
+                    <a href="account/login/" class="text-blue-600 hover:underline font-medium">Se connecter</a>
+                </p>
+            </div>
+        </div>
 
-    <div>
-        Vous avez déjà un compte ? <a href="account/login/">Se connecter</a>
     </div>
+
 {% endblock %}
