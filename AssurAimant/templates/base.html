@@ -17,9 +17,8 @@
         <nav>{% block nav %}
             <ul>
                 <li><a href="/">Accueil</a></li>
-                <li><a href="#">À propos</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{% url 'register' %}">Creation de compte</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
             </ul>
         {% endblock %}</nav>
     </header>
