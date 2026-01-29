@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex flex-col items-center justify-center w-full">
+     <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+        <form method="post" class="card space-y-4">
+	  	{% csrf_token %}
+		<div class="text-slate-700">
+            {% if form.non_field_errors %}
+            <div class="text-red-500 mb-4">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+            {% for field in form %}
+            <div class="mb-4">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+		
+		<input type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 mt-6" value="Se connecter">
+		
+        <div class="mt-8 pt-6 border-t border-gray-100 text-center">
+        <p class="text-center text-slate-600">Pas encore de compte ? <a class="text-blue-600 hover:underline font-medium" href="register">Inscrivez-vous</a></p>
+        </div>
+	</form>
+    </div>
+</div>
+{% endblock %}

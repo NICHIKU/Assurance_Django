@@ -9,6 +9,11 @@
 
 {% block modify %}
 
-<a href="{% url 'profile_modif' %}">Modifier le profil</a>
+<a href="{% url 'profile_modif' %}">Modifier le profil</a><br>
+
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Se déconnecter</button>
+</form>
 
 {% endblock modify %}

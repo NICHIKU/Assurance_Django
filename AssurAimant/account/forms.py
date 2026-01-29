@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import AuthenticationForm
 
 User = get_user_model()
 
@@ -19,4 +20,7 @@ class CustomUserForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=True, label="Prénom")
     last_name = forms.CharField(max_length=30, required=True, label="Nom")
     email = forms.EmailField(required=True)
-    password = forms.CharField(widget=forms.PasswordInput, label="Mot de passe")
+    password = forms.CharField(min_length=8, widget=forms.PasswordInput, label="Mot de passe")
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.EmailField(label="Email", widget=forms.TextInput(attrs={'autofocus': True}))
