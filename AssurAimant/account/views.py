@@ -1,19 +1,15 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import redirect
-
 from django.views import View
-from django.views.generic import DetailView, UpdateView, ListView
-
+from django.views.generic import UpdateView, ListView
 from django.urls import reverse_lazy
-
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
-
-
-from .forms import CustomUserForm
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
+from django.contrib import messages
+from .forms import CustomLoginForm, CustomUserForm
 from .forms import ModificationForm
 from .models import CustomUser
-
 
 User = get_user_model()
 
@@ -62,3 +58,14 @@ class RegisterView(View):
             
             return redirect('login')
         return render(request, self.template_name, {'form': form})
+    
+class UserLoginView(LoginView):
+    template_name = 'authentification/login.html'
+    form_class = CustomLoginForm
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+    
+class UserLogoutView(LogoutView):
+    next_page = reverse_lazy('login')
