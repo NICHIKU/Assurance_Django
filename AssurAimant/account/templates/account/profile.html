@@ -16,6 +16,10 @@
         <dt class="mb-1 text-body">Date d'inscription</dt>
         <dd class="text-lg font-medium">{{ user.date_joined }}</dd>
     </div>
+
+    <br>
+    <a href="{% url 'profile_modif' %}" class="text-black bg-brand box-border border border-b hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xl font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Modifier le profil</a>
+
 </dl>
 
 {% endblock content %}
