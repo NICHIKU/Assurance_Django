@@ -20,12 +20,12 @@
                 <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'home' %}">Accueil</a></li>
                 {% if user.is_authenticated %}
                     <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'predict' %}">Faire une prédiction</a></li>
+                    <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'profile' %}">Mon compte</a></li>
                 {% endif %}
                 {% if not user.is_authenticated %}
                     <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'login' %}">Se connecter</a></li>
                     <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'register' %}">Créer un compte</a></li>
                 {% endif %}
-                <li class="text-xl font-medium text-white hover:text-[#C1C1C1] transition-colors"><a href="{% url 'profile' %}">Mon compte</a></li>
             </ul>
         {% endblock %}</nav>
     </header>
