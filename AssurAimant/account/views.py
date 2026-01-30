@@ -10,14 +10,19 @@ from django.contrib import messages
 from .forms import CustomLoginForm, CustomUserForm
 from .forms import ModificationForm
 from .models import CustomUser
+from django.utils.decorators import method_decorator
+from .decorators import verification_required
+
 
 User = get_user_model()
 
+@method_decorator(verification_required, name='dispatch')
 class UserProfileView(ListView):
     model = User
     template_name = 'account/profile.html'
     context_object_name = 'profile'
-
+ 
+@method_decorator(verification_required, name='dispatch')
 class AccountModificationView(UpdateView):
     model = User
     form_class = ModificationForm
