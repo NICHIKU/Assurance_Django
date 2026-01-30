@@ -14,8 +14,15 @@
             <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
                 <form method="POST" class="space-y-4">
                     {% csrf_token %}
-                    <div class="text-slate-700">
-                        {{ form.as_p }}
+                    <div class="text-slate-700 space-y-4">
+                        {% for field in form %}
+                        <div class="space-y-2">
+                            {{ field.label_tag }}
+                            <div class="border border-gray-300 rounded-lg p-0.5 inline-block">
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
 
                 <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 mt-6">
