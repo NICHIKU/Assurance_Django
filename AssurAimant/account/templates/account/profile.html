@@ -18,8 +18,12 @@
     </div>
 
     <br>
-    <a href="{% url 'profile_modif' %}" class="text-black bg-brand box-border border border-b hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xl font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Modifier le profil</a>
-
+    <a href="{% url 'profile_modif' %}" class="text-black bg-brand box-border border border-b hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Modifier le profil</a>
+    <br><br>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="text-black bg-brand box-border border border-b hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Se déconnecter</button>
+    </form>
 </dl>
 
 {% endblock content %}
@@ -28,9 +32,5 @@
 
 <a href="{% url 'profile_modif' %}">Modifier le profil</a><br>
 
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Se déconnecter</button>
-</form>
 
 {% endblock modify %}
