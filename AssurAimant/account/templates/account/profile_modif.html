@@ -2,31 +2,68 @@
 {% block title %}Modifier le profil{% endblock title %}
 
 {% block content %}
-<div class="flex flex-col items-center justify-center w-full">
-        
-        <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
-            <h1 class="text-3xl font-bold text-center text-slate-800 mb-8">
-                Modifier le profil
+<div class="flex flex-col items-center justify-center w-full">   
+    <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        <div class="flex items-center justify-between gap-4 mb-8">
+            <h1 class="text-3xl font-bold text-center text-slate-800 mb-1">
+                Mon compte
             </h1>
-            <form method="POST" class="space-y-4">
-                {% csrf_token %}
-                <div class="space-y-3">
-                    {% for field in form %}
-                    <div class="space-y-2">
-                        {{ field.label_tag }}
-                        <div class="border border-slate-300 rounded-lg p-1 inline-block">    
-                            {{ field }}
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 mt-6">
-                    Enregistrer les modifications
-                </button>
-            </form>
-        </div>
+            <button id="btn-edit" type="button" class="text-slate-500 hover:text-slate-800 transition transform hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+            </button>
 
+            <button id="btn-validate" type="submit" class="hidden text-slate-600 hover:text-green-800 transition transform hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+            </button>
+        </div>
+        <div class="space-y-3">
+            {% for field in form %}
+            <div class="space-y-2 flex justify-between items-center">
+                {{ field.label_tag }}
+                <div class="border border-slate-300 rounded-lg p-1 inline-block"> 
+                    {{ field }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
     </div>
+    <br>
+        <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="text-black bg-brand box-border border border-b hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Se déconnecter</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnEdit = document.getElementById('btn-edit');
+        const btnValidate = document.getElementById('btn-validate');
+        
+        // Get all inputs and selects
+        const inputs = document.querySelectorAll('input, select');
+
+        // Disable all inputs
+        inputs.forEach(input => {
+            input.disabled = true;
+        });
+
+        btnEdit.addEventListener('click', () => {
+            inputs.forEach(input => {
+                input.disabled = false;
+            });
+            
+            btnEdit.classList.add('hidden');
+            btnValidate.classList.remove('hidden');
+        });
+    })
+</script>
 
 {% endblock content %}
 

@@ -5,16 +5,13 @@ from django.db import models
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
 
+    bmi = models.FloatField(null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    smoker = models.BooleanField(default=False)
+    height = models.FloatField(null=True, blank=True)
+    weight = models.FloatField(null=True, blank=True)
+    region = models.CharField(max_length=15, blank=True, default="")
+    children = models.IntegerField(null=True, blank=True)
+
     def __str__(self):
         return self.email
-
-class UserInformation(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE) # The client depends on the user
-    bmi = models.FloatField()
-    age = models.IntegerField()
-    smoker = models.BooleanField()
-    region = models.CharField(max_length=15)
-    children = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"

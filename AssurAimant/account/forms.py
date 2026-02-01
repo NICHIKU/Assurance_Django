@@ -5,16 +5,29 @@ from django.contrib.auth.forms import AuthenticationForm
 
 User = get_user_model()
 
-class ModificationForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email']
+class ModificationForm(forms.Form):
+    first_name = forms.CharField(max_length=30, required=True, label="Prénom")
+    last_name = forms.CharField(max_length=30, required=True, label="Nom")
+    email = forms.EmailField(required=True)
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
-            raise ValidationError("Un utilisateur avec cet email existe déjà.")
-        return email
+    age = forms.IntegerField(label="Age", max_value=120, min_value=18)
+    children = forms.IntegerField(label="Nombre d'enfants", max_value=20)
+    height = forms.FloatField(label="Taille", max_value=230)
+    weight = forms.FloatField(label="Poids", min_value=30, max_value=250)
+    smoker = forms.ChoiceField(label="Fumez-vous ?", choices=(
+        ("yes", "Oui"),
+        ("no", "Non"),
+    ))
+    sex = forms.ChoiceField(label="Sexe", choices=(
+        ("male", "Homme"),
+        ("female", "Femme"),
+    ))
+    region = forms.ChoiceField(label="Région", choices=(
+        ("northeast", "Nord-est"),
+        ("northwest", "Nord-ouest"),
+        ("southeast", "Sud-est"),
+        ("southwest", "Sud-ouest"),
+    ))
 
 class CustomUserForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=True, label="Prénom")
