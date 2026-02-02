@@ -14,30 +14,63 @@ from django.utils.decorators import method_decorator
 from .decorators import verification_required
 
 
-User = get_user_model()
+user = get_user_model()
 
 @method_decorator(verification_required, name='dispatch')
 class UserProfileView(ListView):
-    model = User
+    model = user
     template_name = 'account/profile.html'
     context_object_name = 'profile'
  
 @method_decorator(verification_required, name='dispatch')
 class AccountModificationView(UpdateView):
-    model = User
-    form_class = ModificationForm
     template_name = 'account/profile_modif.html'
     success_url = reverse_lazy('profile')
     
-    def get_object(self):
-        return self.request.user
+    def get(self, request):
+        form = ModificationForm(
+            initial={
+                'first_name' : request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+
+                # Nullable values :
+                'age': getattr(request.user, 'age', ''),
+                'smoker': getattr(request.user, 'smoker', ''),
+                'height': getattr(request.user, 'height', ''),
+                'weight': getattr(request.user, 'weight', ''),
+                'sex': getattr(request.user, 'sex', ''),
+                'region': getattr(request.user, 'region', ''),
+                'children': getattr(request.user, 'children', ''),
+            }
+        )
+
+        return render(request, self.template_name, {'form': form})
     
     def post(self, request):
-        form = ModificationForm(request.POST, instance=request.user)
+        form = ModificationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = request.user
+
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.email = form.cleaned_data['email']
+            user.age = form.cleaned_data['age']
+            user.children = form.cleaned_data['children']
+
+            user.height = form.cleaned_data['height']
+            user.weight = form.cleaned_data['weight']
+            
+            user.bmi = user.weight / (user.height / 100) ** 2
+            user.smoker = (form.cleaned_data.get('smoker') == 'yes')
+            user.sex = form.cleaned_data['sex']
+            user.region = form.cleaned_data['region']
+
+            user.save()
+
             return redirect('profile')
-        return render(request, 'account/profile_modif.html', {'form': form})
+        
+        return render(request, self.template_name, {'form': form})
 
 def home_view(request):
     return render(request, 'base.html')

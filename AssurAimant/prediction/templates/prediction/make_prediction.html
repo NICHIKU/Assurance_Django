@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flex flex-col items-center w-full">
+        {% if result %}
+            <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 text-center">Estimation de votre prime</h2>
+                <p class="text-6xl font-black text-blue-600 mb-6">{{ result }} $</p>
+                    
+                <a href="{% url 'predict' %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Refaire une simulation
+                </a>
+            </div>
+        {% else %}
+            <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+                <h1 class="text-3xl font-bold text-center text-slate-800 mb-8">
+                    Nouvelle prédiction
+                </h1>
+                <form method="POST" class="space-y-4">
+                    {% csrf_token %}
+                    <div class="text-slate-700 space-y-4">
+                        {% for field in form %}
+                        <div class="space-y-2 flex justify-between items-center">
+                            {{ field.label_tag }}
+                            <div class="border border-gray-300 rounded-lg p-0.5 inline-block">
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 mt-6">
+                    Prédire
+                </button>
+                </form>
+            </div>
+        {% endif %}
+</div>
+{% endblock %}
