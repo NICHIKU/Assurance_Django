@@ -66,16 +66,22 @@ Assurance_Django/
 │   ├── templates/             # Templates globaux
 │   │   └── base.html          # Template de base
 │   ├── static/                # Fichiers statiques
+│   ├── gunicorn_config.py     # Configuration Gunicorn
 │   └── manage.py              # Script de gestion Django
+├── requirements.txt            # Dépendances Python
 ├── .gitignore                 # Fichiers ignorés par Git
 └── README.md                  # Documentation du projet
 ```
 
 ## 📦 Dépendances
 
+Le fichier `requirements.txt` contient toutes les dépendances nécessaires :
+
 ### Python Packages
 - **Django** 5.2.10 - Framework web
-- **python-dotenv** - Gestion des variables d'environnement
+- **python-dotenv** 1.0.1 - Gestion des variables d'environnement
+- **whitenoise** 6.8.2 - Service des fichiers statiques en production
+- **gunicorn** 23.0.0 - Serveur WSGI pour la production
 
 ### Frontend
 - **TailwindCSS** - Framework CSS (via CDN)
@@ -103,7 +109,7 @@ Assurance_Django/
 
 3. **Installer les dépendances**
    ```bash
-   pip install django==5.2.10 python-dotenv
+   pip install -r requirements.txt
    ```
 
 4. **Configurer les variables d'environnement**
@@ -164,11 +170,6 @@ python manage.py test
 ```
 
 ## 🚀 Déploiement
-
-### Installation des librairies de production
-```bash
-pip install whitenoise gunicorn
-```
 
 ### Collection des fichiers statiques
 ```bash
