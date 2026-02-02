@@ -13,5 +13,8 @@ class CustomUser(AbstractUser):
     region = models.CharField(max_length=15, blank=True, default="")
     children = models.IntegerField(null=True, blank=True)
 
+    def compute_bmi(self):
+        return round(self.weight / (self.height / 100) ** 2, 2)
+
     def __str__(self):
         return self.email

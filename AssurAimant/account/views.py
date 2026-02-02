@@ -13,7 +13,6 @@ from .forms import CustomLoginForm, CustomUserForm
 from .forms import ModificationForm
 from .models import CustomUser
 
-
 user = get_user_model()
 
 @method_decorator(verification_required, name='dispatch')
@@ -61,7 +60,8 @@ class AccountModificationView(UpdateView):
             user.height = form.cleaned_data['height']
             user.weight = form.cleaned_data['weight']
             
-            user.bmi = user.weight / (user.height / 100) ** 2
+            user.bmi = user.compute_bmi()
+
             user.smoker = (form.cleaned_data.get('smoker') == 'yes')
             user.sex = form.cleaned_data['sex']
             user.region = form.cleaned_data['region']
