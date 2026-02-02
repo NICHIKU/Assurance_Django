@@ -26,7 +26,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-print("DEBUG =", DEBUG)
+
 
 AUTH_USER_MODEL = 'account.CustomUser'
 
