@@ -7,11 +7,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+from core.decorators import verification_required
 from .forms import CustomLoginForm, CustomUserForm
 from .forms import ModificationForm
 from .models import CustomUser
-from django.utils.decorators import method_decorator
-from .decorators import verification_required
 
 
 user = get_user_model()
@@ -72,6 +72,7 @@ class AccountModificationView(UpdateView):
         
         return render(request, self.template_name, {'form': form})
 
+@verification_required
 def home_view(request):
     return render(request, 'base.html')
 
