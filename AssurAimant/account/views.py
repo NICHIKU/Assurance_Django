@@ -7,17 +7,22 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+from core.decorators import verification_required
 from .forms import CustomLoginForm, CustomUserForm
 from .forms import ModificationForm
 from .models import CustomUser
 
+
 user = get_user_model()
 
+@method_decorator(verification_required, name='dispatch')
 class UserProfileView(ListView):
     model = user
     template_name = 'account/profile.html'
     context_object_name = 'profile'
-
+ 
+@method_decorator(verification_required, name='dispatch')
 class AccountModificationView(UpdateView):
     template_name = 'account/profile_modif.html'
     success_url = reverse_lazy('profile')
@@ -67,6 +72,7 @@ class AccountModificationView(UpdateView):
         
         return render(request, self.template_name, {'form': form})
 
+@verification_required
 def home_view(request):
     return render(request, 'base.html')
 

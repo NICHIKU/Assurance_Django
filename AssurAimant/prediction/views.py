@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.views import View
+from django.utils.decorators import method_decorator
+from core.decorators import verification_required
 from .service import get_model
 from .forms import PredictionForm
 import pandas as pd
 
 # Create your views here.
+@method_decorator(verification_required, name='dispatch')
 class MakePredictionView(View):
     template_name = "prediction/make_prediction.html"
 
