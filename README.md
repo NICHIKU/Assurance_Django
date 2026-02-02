@@ -55,7 +55,7 @@ Assurance_Django/
 │   │   ├── wsgi.py            # Interface WSGI
 │   │   └── asgi.py            # Interface ASGI
 │   ├── account/               # App de gestion des comptes
-│   │   ├── models.py          # Modèles CustomUser et UserInformation
+│   │   ├── models.py          # Modèles CustomUser
 │   │   ├── views.py           # Vues d'authentification et profil
 │   │   ├── forms.py           # Formulaires personnalisés
 │   │   ├── urls.py            # URLs de l'app account
