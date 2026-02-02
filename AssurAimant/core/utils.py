@@ -4,12 +4,12 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 class ApiResponse:
     """
-    Classe utilitaire pour standardiser les réponses API.
+    Utility class for standardizing API responses.
     """
     
     @staticmethod
     def success(data=None, message="Success", status=200):
-        """Retourne une réponse de succès."""
+        """Returns a success response."""
         response_data = {
             'success': True,
             'message': message,
@@ -20,7 +20,7 @@ class ApiResponse:
     
     @staticmethod
     def error(message="Error", status=400, errors=None):
-        """Retourne une réponse d'erreur."""
+        """Returns an error response."""
         response_data = {
             'success': False,
             'message': message,
@@ -31,27 +31,27 @@ class ApiResponse:
     
     @staticmethod
     def created(data=None, message="Resource created successfully"):
-        """Retourne une réponse de création (201)."""
+        """Returns a creation response (201)."""
         return ApiResponse.success(data=data, message=message, status=201)
     
     @staticmethod
     def not_found(message="Resource not found"):
-        """Retourne une réponse 404."""
+        """Returns a 404 response."""
         return ApiResponse.error(message=message, status=404)
     
     @staticmethod
     def unauthorized(message="Authentication required"):
-        """Retourne une réponse 401."""
+        """Returns a 401 response.""" 
         return ApiResponse.error(message=message, status=401)
     
     @staticmethod
     def forbidden(message="Access denied"):
-        """Retourne une réponse 403."""
+        """Returns a 403 response."""
         return ApiResponse.error(message=message, status=403)
 
 def get_client_ip(request):
     """
-    Récupère l'adresse IP du client.
+    Retrieves the client's IP address.
     """
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -62,7 +62,7 @@ def get_client_ip(request):
 
 def validate_required_fields(data, required_fields):
     """
-    Valide la présence des champs requis dans les données.
+    Validates the presence of required fields in the data.
     """
     missing_fields = [field for field in required_fields if field not in data]
     if missing_fields:
