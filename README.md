@@ -1,203 +1,203 @@
 # Assur'Aimant 🏦
 
-Une application web Django moderne pour la gestion d'assurance santé avec système d'authentification complet et profil utilisateur personnalisé.
+A modern Django web application for health insurance management with complete authentication system and personalized user profile.
 
 ## 📋 Description
 
-Assur'Aimant est une plateforme d'assurance développée avec Django 5.2.10 qui permet aux utilisateurs de :
-- Créer un compte personnel avec authentification sécurisée
-- Gérer leur profil et informations personnelles
-- Suivre leurs données d'assurance (IMC, âge, statut fumeur, région, nombre d'enfants)
-- Bénéficier d'une interface moderne et responsive avec TailwindCSS
+Assur'Aimant is an insurance platform developed with Django 5.2.10 that allows users to:
+- Create a personal account with secure authentication
+- Manage their profile and personal information
+- Track their insurance data (BMI, age, smoking status, region, number of children)
+- Benefit from a modern and responsive interface with TailwindCSS
 
-## 🚀 Fonctionnalités
+## 🚀 Features
 
-### 🔐 Authentification & Sécurité
-- **Inscription personnalisée** avec validation des données
-- **Connexion sécurisée** via email
-- **Déconnexion automatique**
-- **Modèle utilisateur personnalisé** avec email unique
-- **Validation des mots de passe** (8 caractères minimum, 1 majuscule, 1 chiffre)
+### 🔐 Authentication & Security
+- **Custom registration** with data validation
+- **Secure login** via email
+- **Automatic logout**
+- **Custom user model** with unique email
+- **Password validation** (minimum 8 characters, 1 uppercase, 1 digit)
 
-### 👤 Gestion du Profil
-- **Visualisation du profil utilisateur**
-- **Modification des informations personnelles**
-- **Informations d'assurance** :
-  - IMC (Indice de Masse Corporelle)
-  - Âge
-  - Statut fumeur
-  - Région
-  - Nombre d'enfants
+### 👤 Profile Management
+- **User profile visualization**
+- **Personal information editing**
+- **Insurance information**:
+  - BMI (Body Mass Index)
+  - Age
+  - Smoking status
+  - Region
+  - Number of children
 
-### 🎨 Interface Utilisateur
-- **Design moderne** avec TailwindCSS
-- **Interface responsive** pour tous les appareils
-- **Navigation intuitive** avec header/footer
-- **Thème professionnel** bleu marine
+### 🎨 User Interface
+- **Modern design** with TailwindCSS
+- **Responsive interface** for all devices
+- **Intuitive navigation** with header/footer
+- **Professional navy blue theme**
 
-## 🛠️ Stack Technique
+## 🛠️ Tech Stack
 
-- **Backend** : Django 5.2.10
-- **Base de données** : SQLite3
-- **Frontend** : HTML5, TailwindCSS
-- **Authentification** : Django Auth System personnalisé
-- **Gestion des variables d'environnement** : python-dotenv
-- **Python** : 3.11+
+- **Backend**: Django 5.2.10
+- **Database**: SQLite3
+- **Frontend**: HTML5, TailwindCSS
+- **Authentication**: Custom Django Auth System
+- **Environment variables management**: python-dotenv
+- **Python**: 3.11+
 
-## 📁 Structure du Projet
+## 📁 Project Structure
 
 ```
 Assurance_Django/
-├── AssurAimant/                 # Répertoire principal du projet
-│   ├── AssurAimant/            # Configuration Django
-│   │   ├── settings.py         # Paramètres de configuration
-│   │   ├── urls.py            # URLs principales
-│   │   ├── wsgi.py            # Interface WSGI
-│   │   └── asgi.py            # Interface ASGI
-│   ├── account/               # App de gestion des comptes
-│   │   ├── models.py          # Modèles CustomUser
-│   │   ├── views.py           # Vues d'authentification et profil
-│   │   ├── forms.py           # Formulaires personnalisés
-│   │   ├── urls.py            # URLs de l'app account
-│   │   └── templates/         # Templates HTML
-│   ├── home/                  # App page d'accueil
-│   │   ├── views.py           # Vue de la page d'accueil
-│   │   └── templates/         # Templates home
-│   ├── templates/             # Templates globaux
-│   │   └── base.html          # Template de base
-│   ├── static/                # Fichiers statiques
-│   ├── gunicorn_config.py     # Configuration Gunicorn
-│   └── manage.py              # Script de gestion Django
-├── requirements.txt            # Dépendances Python
-├── .gitignore                 # Fichiers ignorés par Git
-└── README.md                  # Documentation du projet
+├── AssurAimant/                 # Main project directory
+│   ├── AssurAimant/            # Django configuration
+│   │   ├── settings.py         # Configuration settings
+│   │   ├── urls.py            # Main URLs
+│   │   ├── wsgi.py            # WSGI interface
+│   │   └── asgi.py            # ASGI interface
+│   ├── account/               # Account management app
+│   │   ├── models.py          # CustomUser models
+│   │   ├── views.py           # Authentication and profile views
+│   │   ├── forms.py           # Custom forms
+│   │   ├── urls.py            # Account app URLs
+│   │   └── templates/         # HTML templates
+│   ├── home/                  # Home page app
+│   │   ├── views.py           # Home page view
+│   │   └── templates/         # Home templates
+│   ├── templates/             # Global templates
+│   │   └── base.html          # Base template
+│   ├── static/                # Static files
+│   ├── gunicorn_config.py     # Gunicorn configuration
+│   └── manage.py              # Django management script
+├── requirements.txt            # Python dependencies
+├── .gitignore                 # Files ignored by Git
+└── README.md                  # Project documentation
 ```
 
-## 📦 Dépendances
+## 📦 Dependencies
 
-Le fichier `requirements.txt` contient toutes les dépendances nécessaires :
+The `requirements.txt` file contains all necessary dependencies:
 
 ### Python Packages
-- **Django** 5.2.10 - Framework web
-- **python-dotenv** 1.0.1 - Gestion des variables d'environnement
-- **whitenoise** 6.8.2 - Service des fichiers statiques en production
-- **gunicorn** 23.0.0 - Serveur WSGI pour la production
+- **Django** 5.2.10 - Web framework
+- **python-dotenv** 1.0.1 - Environment variables management
+- **whitenoise** 6.8.2 - Static files serving in production
+- **gunicorn** 23.0.0 - WSGI server for production
 
 ### Frontend
-- **TailwindCSS** - Framework CSS (via CDN)
+- **TailwindCSS** - CSS framework (via CDN)
 
 ## 🚀 Installation
 
-### Prérequis
+### Prerequisites
 - Python 3.11+
-- pip (gestionnaire de paquets Python)
+- pip (Python package manager)
 
-### Étapes d'installation
+### Installation Steps
 
-1. **Cloner le repository**
+1. **Clone the repository**
    ```bash
    git clone <repository-url>
    cd Assurance_Django
    ```
 
-2. **Créer et activer l'environnement virtuel**
+2. **Create and activate virtual environment**
    ```bash
    cd AssurAimant
    python -m venv venv
-   source venv/bin/activate  # Sur Windows: venv\Scripts\activate
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. **Installer les dépendances**
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Configurer les variables d'environnement**
+4. **Configure environment variables**
    ```bash
-   # Créer un fichier .env à la racine du projet AssurAimant/
-   echo "SECRET_KEY=votre_cle_secrete_ici" > .env
+   # Create a .env file in the root of the AssurAimant/ project
+   echo "SECRET_KEY=your_secret_key_here" > .env
    echo "DEBUG=True" >> .env
    ```
 
-5. **Appliquer les migrations**
+5. **Apply migrations**
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-6. **Créer un superutilisateur (optionnel)**
+6. **Create a superuser (optional)**
    ```bash
    python manage.py createsuperuser
    ```
 
-7. **Lancer le serveur de développement**
+7. **Start the development server**
    ```bash
    python manage.py runserver
    ```
 
-8. **Accéder à l'application**
-   - Application : http://127.0.0.1:8000/
-   - Administration : http://127.0.0.1:8000/admin/
+8. **Access the application**
+   - Application: http://127.0.0.1:8000/
+   - Administration: http://127.0.0.1:8000/admin/
 
 ## 🔧 Configuration
 
-### Variables d'environnement
-- `SECRET_KEY` : Clé secrète Django (générée automatiquement en production)
-- `DEBUG` : Mode debug (True/False)
+### Environment Variables
+- `SECRET_KEY`: Django secret key (automatically generated in production)
+- `DEBUG`: Debug mode (True/False)
 
-### Base de données
-Le projet utilise SQLite3 par défaut. Le fichier `db.sqlite3` est créé automatiquement lors des migrations.
+### Database
+The project uses SQLite3 by default. The `db.sqlite3` file is automatically created during migrations.
 
-## 📝 Utilisation
+## 📝 Usage
 
 ### Navigation
-1. **Page d'accueil** : Accueil principal de l'application
-2. **Création de compte** : Inscription avec validation des données
-3. **Connexion** : Authentification via email
-4. **Profil** : Visualisation et modification des informations
+1. **Home page**: Main application homepage
+2. **Account creation**: Registration with data validation
+3. **Login**: Authentication via email
+4. **Profile**: View and edit information
 
-### Flux utilisateur typique
-1. L'utilisateur s'inscrit avec email, nom, prénom et mot de passe
-2. Après validation, il peut se connecter
-3. Il accède à son profil pour compléter ses informations d'assurance
-4. Il peut modifier ses informations personnelles à tout moment
+### Typical User Flow
+1. User registers with email, first name, last name, and password
+2. After validation, they can log in
+3. They access their profile to complete their insurance information
+4. They can modify their personal information at any time
 
 ## 🧪 Tests
 
-Pour exécuter les tests :
+To run tests:
 ```bash
 python manage.py test
 ```
 
-## 🚀 Déploiement
+## 🚀 Deployment
 
-### Collection des fichiers statiques
+### Collect static files
 ```bash
 python manage.py collectstatic --noinput
 ```
 
-### Lancement du projet en production
+### Start the project in production
 ```bash
 gunicorn -c gunicorn_config.py AssurAimant.wsgi:application
 ```
 
-### Arrêt du serveur
+### Stop the server
 ```bash
 pkill gunicorn
 ```
 
-### Configuration production complète
-1. **Désactiver le mode debug** : `DEBUG=False`
-2. **Configurer les `ALLOWED_HOSTS`**
-3. **Utiliser une base de données robuste** (PostgreSQL, MySQL)
-4. **Configurer les fichiers statiques**
-5. **Utiliser un serveur WSGI** (Gunicorn, uWSGI)
+### Complete production configuration
+1. **Disable debug mode**: `DEBUG=False`
+2. **Configure `ALLOWED_HOSTS`**
+3. **Use a robust database** (PostgreSQL, MySQL)
+4. **Configure static files**
+5. **Use a WSGI server** (Gunicorn, uWSGI)
 
-### Exemple de configuration production
+### Production configuration example
 ```python
 # settings.py
 DEBUG = False
-ALLOWED_HOSTS = ['votredomaine.com']
+ALLOWED_HOSTS = ['yourdomain.com']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -212,4 +212,4 @@ DATABASES = {
 
 ---
 
-**Assur'Aimant** © 2026 - Tous droits réservés
+**Assur'Aimant** © 2026 - All rights reserved

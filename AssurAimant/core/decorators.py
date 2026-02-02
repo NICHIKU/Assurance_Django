@@ -2,8 +2,8 @@ from django.http import JsonResponse
 
 def verification_required(view_func):
     """
-    Décorateur qui vérifie si l'utilisateur est authentifié.
-    Retourne une erreur 401 si l'utilisateur n'est pas authentifié.
+    Decorator that checks whether the user is authenticated.
+    Returns a 401 error if the user is not authenticated.
     """
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -13,8 +13,8 @@ def verification_required(view_func):
 
 def admin_required(view_func):
     """
-    Décorateur qui vérifie si l'utilisateur est authentifié et est admin.
-    Retourne une erreur 403 si l'utilisateur n'est pas admin.
+    Decorator that checks whether the user is authenticated and is an administrator.
+    Returns a 403 error if the user is not an administrator.
     """
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated:
