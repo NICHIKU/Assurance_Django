@@ -6,7 +6,6 @@ from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
-from django.contrib import messages
 from django.utils.decorators import method_decorator
 from core.decorators import verification_required
 from .forms import CustomLoginForm, CustomUserForm
