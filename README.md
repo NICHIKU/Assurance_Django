@@ -165,7 +165,27 @@ python manage.py test
 
 ## 🚀 Déploiement
 
-### En production
+### Installation des librairies de production
+```bash
+pip install whitenoise gunicorn
+```
+
+### Collection des fichiers statiques
+```bash
+python manage.py collectstatic --noinput
+```
+
+### Lancement du projet en production
+```bash
+gunicorn -c gunicorn_config.py AssurAimant.wsgi:application
+```
+
+### Arrêt du serveur
+```bash
+pkill gunicorn
+```
+
+### Configuration production complète
 1. **Désactiver le mode debug** : `DEBUG=False`
 2. **Configurer les `ALLOWED_HOSTS`**
 3. **Utiliser une base de données robuste** (PostgreSQL, MySQL)
