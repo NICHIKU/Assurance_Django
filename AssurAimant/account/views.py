@@ -5,8 +5,10 @@ from django.views.generic import UpdateView, ListView
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import LogoutView
 from django.contrib import messages
+from django.contrib.auth import logout
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from core.decorators import verification_required
 from .forms import CustomLoginForm, CustomUserForm
@@ -128,8 +130,10 @@ class UserLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('home')
     
-class UserLogoutView(LogoutView):
-    next_page = reverse_lazy('login')
-    
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
+@csrf_protect
+@login_required
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('login')
+    return redirect('login')

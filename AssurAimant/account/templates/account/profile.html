@@ -169,7 +169,7 @@
                     <h3 class="font-semibold text-red-800 mb-1">Déconnexion</h3>
                     <p class="text-sm text-red-600">Vous souhaitez vous déconnecter de votre compte ?</p>
                 </div>
-                <form action="{% url 'logout' %}" method="post">
+                <form action="{% url 'logout' %}" method="post" id="logout-form">
                     {% csrf_token %}
                     <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-all duration-200 transform hover:scale-105 shadow-md">
                         Se déconnecter
@@ -185,8 +185,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnEdit = document.getElementById('btn-edit');
     const btnValidate = document.getElementById('btn-validate');
     
-    // Get all inputs and selects
-    const inputs = document.querySelectorAll('input, select, textarea');
+    // Get all inputs and selects from profile form only
+    const profileForm = document.querySelector('form[action="/profile-modif"]');
+    const inputs = profileForm ? profileForm.querySelectorAll('input, select, textarea') : [];
 
     // Disable all inputs initially
     inputs.forEach(input => {
@@ -216,6 +217,16 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'translateY(0)';
         });
     });
+
+    // Ensure logout form is not disabled by profile edit script
+    const logoutForm = document.getElementById('logout-form');
+    if (logoutForm) {
+        const logoutButton = logoutForm.querySelector('button[type="submit"]');
+        if (logoutButton) {
+            logoutButton.disabled = false;
+            logoutButton.classList.remove('cursor-not-allowed');
+        }
+    }
 });
 </script>
 {% endblock %}
