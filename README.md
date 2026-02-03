@@ -8,6 +8,8 @@ Assur'Aimant is an insurance platform developed with Django 5.2.10 that allows u
 - Create a personal account with secure authentication
 - Manage their profile and personal information
 - Track their insurance data (BMI, age, smoking status, region, number of children)
+- **Predict insurance costs** using machine learning models
+- **Schedule appointments** with insurance advisors
 - Benefit from a modern and responsive interface with TailwindCSS
 
 ## 🚀 Features
@@ -29,6 +31,19 @@ Assur'Aimant is an insurance platform developed with Django 5.2.10 that allows u
   - Region
   - Number of children
 
+### 🤖 Insurance Prediction
+- **AI-powered cost prediction** using scikit-learn
+- **Linear regression model** trained on insurance data
+- **Real-time calculation** based on user parameters
+- **Interactive form** with data validation
+
+### 📅 Appointment System
+- **Schedule appointments** with insurance advisors
+- **Advisor management** with specialities
+- **Time slot management** (9AM-6PM)
+- **Appointment status tracking** (pending, confirmed, cancelled, completed)
+- **Calendar view** for easy scheduling
+
 ### 🎨 User Interface
 - **Modern design** with TailwindCSS
 - **Responsive interface** for all devices
@@ -41,7 +56,11 @@ Assur'Aimant is an insurance platform developed with Django 5.2.10 that allows u
 - **Database**: SQLite3
 - **Frontend**: HTML5, TailwindCSS
 - **Authentication**: Custom Django Auth System
+- **Machine Learning**: scikit-learn 1.7.2, pandas 2.3.3, joblib 1.5.3
 - **Environment variables management**: python-dotenv
+- **Static files**: whitenoise 6.8.2
+- **WSGI server**: gunicorn 23.0.0
+- **Form enhancements**: django-widget-tweaks
 - **Python**: 3.11+
 
 ## 📁 Project Structure
@@ -63,6 +82,22 @@ Assurance_Django/
 │   ├── home/                  # Home page app
 │   │   ├── views.py           # Home page view
 │   │   └── templates/         # Home templates
+│   ├── prediction/            # Insurance prediction app
+│   │   ├── models.py          # Prediction models
+│   │   ├── views.py           # Prediction views
+│   │   ├── forms.py           # Prediction forms
+│   │   ├── service.py         # ML model service
+│   │   ├── resources/         # ML model files
+│   │   │   └── linear_model.joblib  # Trained model
+│   │   └── urls.py            # Prediction app URLs
+│   ├── appointment/           # Appointment management app
+│   │   ├── models.py          # Advisor and Appointment models
+│   │   ├── views.py           # Appointment views
+│   │   ├── forms.py           # Appointment forms
+│   │   └── urls.py            # Appointment app URLs
+│   ├── core/                  # Core utilities app
+│   │   ├── models.py          # Core models
+│   │   └── decorators.py      # Custom decorators
 │   ├── templates/             # Global templates
 │   │   └── base.html          # Base template
 │   ├── static/                # Static files
@@ -82,9 +117,19 @@ The `requirements.txt` file contains all necessary dependencies:
 - **python-dotenv** 1.0.1 - Environment variables management
 - **whitenoise** 6.8.2 - Static files serving in production
 - **gunicorn** 23.0.0 - WSGI server for production
+- **scikit-learn** 1.7.2 - Machine learning library
+- **pandas** 2.3.3 - Data manipulation library
+- **joblib** 1.5.3 - Model serialization
+
+### Django Extensions
+- **django-widget-tweaks** - Form field customization
 
 ### Frontend
 - **TailwindCSS** - CSS framework (via CDN)
+
+### Machine Learning Model
+- **Pre-trained linear regression model** for insurance cost prediction
+- Located at `prediction/resources/linear_model.joblib`
 
 ## 🚀 Installation
 
@@ -130,12 +175,21 @@ The `requirements.txt` file contains all necessary dependencies:
    python manage.py createsuperuser
    ```
 
-7. **Start the development server**
+7. **Create insurance advisors (optional)**
+   ```bash
+   python create_advisors.py
+   ```
+   This will create 3 test advisors with different specialities:
+   - Martin Durand (Assurance Vie)
+   - Sophie Bernard (Assurance Auto) 
+   - Pierre Martin (Assurance Habitation)
+
+8. **Start the development server**
    ```bash
    python manage.py runserver
    ```
 
-8. **Access the application**
+9. **Access the application**
    - Application: http://127.0.0.1:8000/
    - Administration: http://127.0.0.1:8000/admin/
 
@@ -155,12 +209,16 @@ The project uses SQLite3 by default. The `db.sqlite3` file is automatically crea
 2. **Account creation**: Registration with data validation
 3. **Login**: Authentication via email
 4. **Profile**: View and edit information
+5. **Insurance Prediction**: Calculate estimated insurance costs
+6. **Appointments**: Schedule and manage advisor meetings
 
 ### Typical User Flow
 1. User registers with email, first name, last name, and password
 2. After validation, they can log in
 3. They access their profile to complete their insurance information
-4. They can modify their personal information at any time
+4. They can use the prediction tool to estimate insurance costs
+5. They can schedule appointments with insurance advisors
+6. They can modify their personal information at any time
 
 ## 🧪 Tests
 
