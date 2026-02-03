@@ -43,6 +43,16 @@ class CustomUserTest(TestCase):
         self.assertEqual(self.completeUser.region, 1)
         self.assertEqual(self.completeUser.children, 0)
 
+    def test_bdd_user_check(self):
+        users = CustomUser.objects.all()
+        self.assertEqual(len(users), 2)
+        
+    def test_bdd_user_deletion(self):
+        self.basicUser.delete()
+        users = CustomUser.objects.all()
+        self.assertEqual(len(users), 1)
+            
+
     def test_bmi_calculation(self):
         user = CustomUser(height=180, weight=80)
         self.assertEqual(user.compute_bmi(), 24.69)
