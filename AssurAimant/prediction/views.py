@@ -11,7 +11,8 @@ import pandas as pd
 class MakePredictionView(View):
     template_name = "prediction/make_prediction.html"
 
-    model = get_model()
+    def get_model(self):
+        return get_model()
 
     def get(self, request):
         form = PredictionForm()
@@ -40,9 +41,11 @@ class MakePredictionView(View):
                 'region': [region]
             })
 
-        result = self.model.predict(data)[0]
+            result = self.get_model().predict(data)[0]
 
-        return render(request, self.template_name, {
-            'form': form,
-            'result': round(result, 2)
-        })
+            return render(request, self.template_name, {
+                'form': form,
+                'result': round(result, 2)
+            })
+        
+        return render(request, self.template_name, {'form': form})

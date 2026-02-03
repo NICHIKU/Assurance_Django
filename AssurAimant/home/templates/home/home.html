@@ -1,50 +1,254 @@
 {% extends 'base.html' %}
 
-<head>
-    <link rel="stylesheet" href="../../static/home/style.css">
-</head>
+{% block title %}Accueil - Assur'Aimant{% endblock %}
 
-<body>
-    <main>
-        {% block content %}
-        <div class="bg-white rounded-lg shadow-md p-8 w-full">
-        <section>
-            <h2 class="text-2xl font-semibold text-[#004080] mb-4 text-center">Pourquoi choisir Assur'Aimant ?</h2>
-            <p>Nous offrons des solutions d'assurance adaptées à vos besoins, avec un service client exceptionnel et des
-                tarifs compétitifs. Faites confiance à notre expertise pour protéger ce qui compte le plus pour vous.
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-primary to-primary-dark text-white py-20 mb-16 rounded-2xl overflow-hidden">
+    <div class="absolute inset-0 bg-black opacity-10"></div>
+    <div class="relative container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-6 leading-tight">
+                Votre Assurance, 
+                <span class="text-blue-200">Simplifiée et Intelligent</span>
+            </h1>
+            <p class="text-xl mb-8 text-blue-100 leading-relaxed">
+                Découvrez une nouvelle façon de gérer vos assurances avec des prédictions personnalisées 
+                et des conseils adaptés à votre profil.
             </p>
-        </section>
-        <br>
-        <section>
-            <h2 class="text-2xl font-semibold text-[#004080] mb-4 text-center">Prédiction des Charges d'Assurance</h2>
-            <p>Chez Assur'Aimant, nous vous offrons la possibilité de créer un compte personnel et de vous connecter
-                pour accéder à notre service exclusif de prédiction des charges d'assurance. Une fois connecté, vous
-                pourrez saisir vos informations personnelles, telles que votre âge, votre statut de fumeur, le nombre
-                d'enfants à charge, votre région, et bien plus encore. Ces informations nous permettront de vous fournir
-                une estimation précise et personnalisée de vos charges d'assurance.</p>
-            <p>Rejoignez-nous dès aujourd'hui pour bénéficier de ce service gratuit et simplifier la gestion de vos
-                assurances !</p>
-        </section>
-        <section>
-            <h2>À propos de nous</h2>
-            <p>Assur’Aimant est une plateforme créée en 2026 par une équipe passionnée par l’assurance et les nouvelles
-                technologies, avec pour objectif de simplifier la gestion et la prédiction des charges d’assurance.
-
-                Face à la complexité croissante des offres et des coûts liés à l’assurance, nous avons souhaité proposer
-                une solution claire, accessible et utile à tous. Assur’Aimant permet aux utilisateurs d’obtenir des
-                estimations personnalisées de leurs charges d’assurance en fonction de leur profil et de leur situation
-                personnelle.
-
-                Grâce à l’utilisation d’outils numériques modernes et d’une approche centrée sur l’utilisateur, notre
-                plateforme aide chacun à mieux comprendre, anticiper et gérer ses dépenses d’assurance.
-
-                La confiance, la transparence et la sécurité des données sont au cœur de notre démarche. Nous nous
-                engageons à protéger les informations de nos utilisateurs et à améliorer continuellement notre service
-                afin de répondre au mieux à leurs besoins.
-
-                Assur’Aimant, c’est l’assurance pensée pour aujourd’hui et pour demain.</p>
-        </section>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'predict' %}" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-200 transform hover:scale-105 shadow-lg">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            Faire une prédiction
+                        </span>
+                    </a>
+                    <a href="{% url 'appointment:booking' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-all duration-200 transform hover:scale-105">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            Prendre rendez-vous
+                        </span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'register' %}" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-200 transform hover:scale-105 shadow-lg">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                            </svg>
+                            Créer mon compte
+                        </span>
+                    </a>
+                    <a href="{% url 'login' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-all duration-200 transform hover:scale-105">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                            </svg>
+                            Me connecter
+                        </span>
+                    </a>
+                {% endif %}
+            </div>
         </div>
-        {% endblock %}
-    </main>
-</body>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg class="w-full h-12 text-gray-50" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <path d="M0,50 C25,80 75,20 100,50 L100,100 L0,100 Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="mb-16">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Pourquoi choisir Assur'Aimant ?</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Des solutions d'assurance innovantes avec un service client exceptionnel et des tarifs compétitifs
+        </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">Sécurité & Fiabilité</h3>
+            <p class="text-gray-600 text-center leading-relaxed">
+                Vos données sont protégées avec les plus hauts standards de sécurité. 
+                Faites confiance à notre expertise pour protéger ce qui compte le plus pour vous.
+            </p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">Innovation Technologique</h3>
+            <p class="text-gray-600 text-center leading-relaxed">
+                Notre plateforme utilise l'intelligence artificielle pour vous fournir 
+                des prédictions précises et des recommandations personnalisées.
+            </p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">Service Client Exceptionnel</h3>
+            <p class="text-gray-600 text-center leading-relaxed">
+                Notre équipe d'experts est disponible pour vous accompagner 
+                et répondre à toutes vos questions 7j/7.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Prediction Service Section -->
+<section class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-12 mb-16">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Prédiction des Charges d'Assurance</h2>
+            <p class="text-xl text-gray-600 leading-relaxed">
+                Obtenez une estimation précise et personnalisée de vos charges d'assurance
+            </p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Comment ça marche ?</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Créez votre compte</h4>
+                                <p class="text-gray-600">Inscription simple et sécurisée en quelques minutes</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Saisissez vos informations</h4>
+                                <p class="text-gray-600">Âge, statut de fumeur, nombre d'enfants, région...</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Obtenez votre prédiction</h4>
+                                <p class="text-gray-600">Estimation instantanée et recommandations personnalisées</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    {% if not user.is_authenticated %}
+                    <div class="mt-8">
+                        <a href="{% url 'register' %}" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-md inline-block text-center">
+                            Commencer maintenant
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl p-6">
+                    <div class="text-center">
+                        <svg class="w-24 h-24 text-blue-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <h4 class="text-xl font-semibold text-gray-800 mb-2">Analyse IA</h4>
+                        <p class="text-gray-600">Algorithmes avancés pour des prédictions précises</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="mb-16">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">À propos de nous</h2>
+            <p class="text-xl text-gray-600">L'assurance réinventée pour votre tranquillité d'esprit</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-10 border border-gray-100">
+            <div class="prose prose-lg max-w-none">
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    <strong>Assur'Aimant</strong> est une plateforme créée en 2026 par une équipe passionnée par l'assurance 
+                    et les nouvelles technologies, avec pour objectif de simplifier la gestion et la prédiction des charges d'assurance.
+                </p>
+                
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    Face à la complexité croissante des offres et des coûts liés à l'assurance, nous avons souhaité proposer 
+                    une solution claire, accessible et utile à tous. Notre plateforme permet aux utilisateurs d'obtenir des 
+                    estimations personnalisées de leurs charges d'assurance en fonction de leur profil et de leur situation personnelle.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">2026</div>
+                        <p class="text-gray-600">Année de création</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2">1000+</div>
+                        <p class="text-gray-600">Clients satisfaits</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2">24/7</div>
+                        <p class="text-gray-600">Support disponible</p>
+                    </div>
+                </div>
+                
+                <p class="text-gray-700 leading-relaxed">
+                    Grâce à l'utilisation d'outils numériques modernes et d'une approche centrée sur l'utilisateur, 
+                    notre plateforme aide chacun à mieux comprendre, anticiper et gérer ses dépenses d'assurance.
+                </p>
+                
+                <p class="text-gray-700 leading-relaxed mt-6">
+                    <strong>La confiance, la transparence et la sécurité des données</strong> sont au cœur de notre démarche. 
+                    Nous nous engageons à protéger les informations de nos utilisateurs et à améliorer continuellement 
+                    notre service afin de répondre au mieux à leurs besoins.
+                </p>
+                
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 mt-8 text-center">
+                    <p class="text-xl font-semibold text-gray-800">
+                        Assur'Aimant, c'est l'assurance pensée pour aujourd'hui et pour demain.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-gradient-to-r from-primary to-primary-dark text-white rounded-2xl p-12 text-center">
+    <h2 class="text-3xl font-bold mb-4">Prêt à simplifier votre assurance ?</h2>
+    <p class="text-xl mb-8 text-blue-100">Rejoignez-nous dès aujourd'hui et bénéficiez de notre service gratuit</p>
+    
+    {% if user.is_authenticated %}
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'predict' %}" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-200 transform hover:scale-105 shadow-lg">
+                Faire une prédiction
+            </a>
+            <a href="{% url 'appointment:booking' %}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-all duration-200 transform hover:scale-105">
+                Prendre rendez-vous
+            </a>
+        </div>
+    {% else %}
+        <a href="{% url 'register' %}" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-200 transform hover:scale-105 shadow-lg inline-block">
+            Créer mon compte gratuitement
+        </a>
+    {% endif %}
+</section>
+{% endblock %}

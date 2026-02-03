@@ -1,39 +1,193 @@
 {% extends "base.html" %}
-{% block content %}
-    
-    <div class="flex flex-col items-center justify-center w-full">
-        
-        <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
-            <h1 class="text-3xl font-bold text-center text-slate-800 mb-8">
-                Créer un compte
-            </h1>
-            
-            <form method="POST" class="space-y-4">
-                {% csrf_token %}
-                  <div class="text-slate-700 space-y-4">
-                        {% for field in form %}
-                        <div class="space-y-2">
-                            {{ field.label_tag }}
-                            <div class="border border-gray-300 rounded-lg p-0.5 inline-block">
-                                {{ field }}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
 
-                <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 mt-6">
+{% block title %}Inscription - Assur'Aimant{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="max-w-md w-full space-y-8">
+        <!-- Header -->
+        <div class="text-center">
+            <div class="mx-auto w-20 h-20 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center mb-6">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Créer votre compte</h2>
+            <p class="text-gray-600">Rejoignez Assur'Aimant et simplifiez votre assurance</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="space-y-2">
+                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ field.label }}
+                        {% if field.field.required %}
+                            <span class="text-red-500">*</span>
+                        {% endif %}
+                    </label>
+                    <div class="relative">
+                        {% if field.name == 'first_name' %}
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        {{ field|add_class:"pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" }}
+                        {% elif field.name == 'last_name' %}
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        {{ field|add_class:"pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" }}
+                        {% elif field.name == 'email' %}
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        {{ field|add_class:"pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" }}
+                        {% elif field.name == 'password1' or field.name == 'password2' %}
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        {{ field|add_class:"pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" }}
+                        {% else %}
+                        {{ field|add_class:"w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" }}
+                        {% endif %}
+                    </div>
+                    {% if field.errors %}
+                        <p class="text-red-500 text-sm">{{ field.errors.0 }}</p>
+                    {% endif %}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-xs">{{ field.help_text }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                
+                <!-- Password Strength Indicator -->
+                <div id="password-strength" class="hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-600">Force du mot de passe</span>
+                        <span id="strength-text" class="text-sm font-medium"></span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="strength-bar" class="h-2 rounded-full transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Terms and Privacy -->
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1">
+                        <label for="terms" class="ml-2 block text-sm text-gray-700">
+                            J'accepte les <a href="#" class="text-primary hover:text-primary-dark font-medium">conditions d'utilisation</a> 
+                            et la <a href="#" class="text-primary hover:text-primary-dark font-medium">politique de confidentialité</a>
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input id="newsletter" name="newsletter" type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1">
+                        <label for="newsletter" class="ml-2 block text-sm text-gray-700">
+                            Je souhaite recevoir des offres et actualités d'Assur'Aimant
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-primary to-primary-dark text-white font-semibold py-3 px-4 rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-200 transform hover:scale-105 shadow-lg">
                     Créer mon compte
                 </button>
             </form>
             
-            <div class="mt-8 pt-6 border-t border-gray-100 text-center">
-                <p class="text-slate-600">
-                    Vous avez déjà un compte ? 
-                    <a href="login" class="text-blue-600 hover:underline font-medium">Se connecter</a>
-                </p>
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <div class="text-center">
+                    <p class="text-gray-600">
+                        Vous avez déjà un compte ? 
+                        <a href="{% url 'login' %}" class="font-medium text-primary hover:text-primary-dark transition-colors">
+                            Se connecter
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
 
+        <!-- Benefits -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6">
+            <h3 class="font-semibold text-gray-800 mb-3 text-center">Pourquoi nous rejoindre ?</h3>
+            <div class="space-y-2">
+                <div class="flex items-center text-sm text-gray-700">
+                    <svg class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    Accès gratuit aux prédictions d'assurance
+                </div>
+                <div class="flex items-center text-sm text-gray-700">
+                    <svg class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    Prise de rendez-vous en ligne
+                </div>
+                <div class="flex items-center text-sm text-gray-700">
+                    <svg class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    Conseils personnalisés
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const password1 = document.getElementById('id_password1');
+    const password2 = document.getElementById('id_password2');
+    const strengthDiv = document.getElementById('password-strength');
+    const strengthBar = document.getElementById('strength-bar');
+    const strengthText = document.getElementById('strength-text');
+    
+    if (password1) {
+        password1.addEventListener('input', function() {
+            const password = this.value;
+            if (password.length > 0) {
+                strengthDiv.classList.remove('hidden');
+                const strength = checkPasswordStrength(password);
+                updateStrengthIndicator(strength);
+            } else {
+                strengthDiv.classList.add('hidden');
+            }
+        });
+    }
+    
+    function checkPasswordStrength(password) {
+        let strength = 0;
+        if (password.length >= 8) strength++;
+        if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+        if (password.match(/[0-9]/)) strength++;
+        if (password.match(/[^a-zA-Z0-9]/)) strength++;
+        return strength;
+    }
+    
+    function updateStrengthIndicator(strength) {
+        const strengthLevels = [
+            { width: '25%', color: 'bg-red-500', text: 'Faible', textColor: 'text-red-500' },
+            { width: '50%', color: 'bg-yellow-500', text: 'Moyen', textColor: 'text-yellow-500' },
+            { width: '75%', color: 'bg-blue-500', text: 'Fort', textColor: 'text-blue-500' },
+            { width: '100%', color: 'bg-green-500', text: 'Très fort', textColor: 'text-green-500' }
+        ];
+        
+        const level = strengthLevels[Math.min(strength, 3)];
+        strengthBar.className = `h-2 rounded-full transition-all duration-300 ${level.color}`;
+        strengthBar.style.width = level.width;
+        strengthText.className = `text-sm font-medium ${level.textColor}`;
+        strengthText.textContent = level.text;
+    }
+});
+</script>
 {% endblock %}

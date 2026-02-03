@@ -17,15 +17,15 @@ from .models import CustomUser
 user = get_user_model()
 
 @method_decorator(verification_required, name='dispatch')
-class UserProfileView(ListView):
-    model = user
+class UserProfileView(View):
     template_name = 'account/profile.html'
-    context_object_name = 'profile'
+    
+    def get(self, request):
+        return render(request, self.template_name, {'user': request.user})
  
 @method_decorator(verification_required, name='dispatch')
-class AccountModificationView(UpdateView):
+class AccountModificationView(View):
     template_name = 'account/profile_modif.html'
-    success_url = reverse_lazy('profile')
     
     def get(self, request):
         form = ModificationForm(
@@ -35,13 +35,13 @@ class AccountModificationView(UpdateView):
                 'email': request.user.email,
 
                 # Nullable values :
-                'age': getattr(request.user, 'age', ''),
-                'smoker': getattr(request.user, 'smoker', ''),
-                'height': getattr(request.user, 'height', ''),
-                'weight': getattr(request.user, 'weight', ''),
+                'age': getattr(request.user, 'age', None),
+                'smoker': 'yes' if getattr(request.user, 'smoker', False) else 'no',
+                'height': getattr(request.user, 'height', None),
+                'weight': getattr(request.user, 'weight', None),
                 'sex': getattr(request.user, 'sex', ''),
                 'region': getattr(request.user, 'region', ''),
-                'children': getattr(request.user, 'children', ''),
+                'children': getattr(request.user, 'children', None),
             }
         )
 
@@ -55,20 +55,28 @@ class AccountModificationView(UpdateView):
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.email = form.cleaned_data['email']
-            user.age = form.cleaned_data['age']
-            user.children = form.cleaned_data['children']
-
-            user.height = form.cleaned_data['height']
-            user.weight = form.cleaned_data['weight']
             
-            user.bmi = user.weight / (user.height / 100) ** 2
+            # Handle optional fields
+            if form.cleaned_data['age'] is not None:
+                user.age = form.cleaned_data['age']
+            if form.cleaned_data['children'] is not None:
+                user.children = form.cleaned_data['children']
+            if form.cleaned_data['height'] is not None:
+                user.height = form.cleaned_data['height']
+            if form.cleaned_data['weight'] is not None:
+                user.weight = form.cleaned_data['weight']
+                
+            # Calculate BMI only if both height and weight are available
+            if user.height and user.weight:
+                user.bmi = user.weight / (user.height / 100) ** 2
+                
             user.smoker = (form.cleaned_data.get('smoker') == 'yes')
             user.sex = form.cleaned_data['sex']
             user.region = form.cleaned_data['region']
 
             user.save()
 
-            return redirect('profile')
+            return redirect('profile_modif')
         
         return render(request, self.template_name, {'form': form})
 

@@ -22,5 +22,5 @@ urlpatterns = [
     path('',include('account.urls')),
     path('', include('home.urls')),
     path('', include('prediction.urls')),
-    path('', include('appointment.urls'))
+    path('', include('appointment.urls', namespace='appointment'))
 ]

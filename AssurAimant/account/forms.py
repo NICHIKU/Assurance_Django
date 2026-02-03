@@ -10,10 +10,10 @@ class ModificationForm(forms.Form):
     last_name = forms.CharField(max_length=30, required=True, label="Nom")
     email = forms.EmailField(required=True)
 
-    age = forms.IntegerField(label="Age", max_value=120, min_value=18)
-    children = forms.IntegerField(label="Nombre d'enfants", max_value=20)
-    height = forms.FloatField(label="Taille", max_value=230)
-    weight = forms.FloatField(label="Poids", min_value=30, max_value=250)
+    age = forms.IntegerField(label="Age", max_value=120, min_value=18, required=False)
+    children = forms.IntegerField(label="Nombre d'enfants", max_value=20, required=False)
+    height = forms.FloatField(label="Taille", max_value=230, required=False)
+    weight = forms.FloatField(label="Poids", min_value=30, max_value=250, required=False)
     smoker = forms.ChoiceField(label="Fumez-vous ?", choices=(
         ("yes", "Oui"),
         ("no", "Non"),
