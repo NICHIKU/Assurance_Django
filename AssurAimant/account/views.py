@@ -130,3 +130,6 @@ class UserLoginView(LoginView):
     
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy('login')
+    
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)

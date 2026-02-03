@@ -25,7 +25,8 @@ ALLOWED_HOSTS = []
 load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+# DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = True
 
 
 AUTH_USER_MODEL = 'account.CustomUser'

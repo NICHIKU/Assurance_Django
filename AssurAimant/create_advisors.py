@@ -46,6 +46,7 @@ for advisor_data in advisors_data:
     
     # Créer l'utilisateur conseiller
     user = User.objects.create_user(
+        username=advisor_data['email'],  # Utiliser email comme username
         email=advisor_data['email'],
         first_name=advisor_data['first_name'],
         last_name=advisor_data['last_name'],
