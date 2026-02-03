@@ -21,11 +21,25 @@ class UserProfileView(View):
     template_name = 'account/profile.html'
     
     def get(self, request):
-        return render(request, self.template_name, {'user': request.user})
+        form = ModificationForm(
+            initial={
+                'first_name' : request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'age': getattr(request.user, 'age', None),
+                'smoker': 'yes' if getattr(request.user, 'smoker', False) else 'no',
+                'height': getattr(request.user, 'height', None),
+                'weight': getattr(request.user, 'weight', None),
+                'sex': getattr(request.user, 'sex', ''),
+                'region': getattr(request.user, 'region', ''),
+                'children': getattr(request.user, 'children', None),
+            }
+        )
+        return render(request, self.template_name, {'form': form, 'user': request.user})
  
 @method_decorator(verification_required, name='dispatch')
 class AccountModificationView(View):
-    template_name = 'account/profile_modif.html'
+    template_name = 'account/profile.html'
     
     def get(self, request):
         form = ModificationForm(
