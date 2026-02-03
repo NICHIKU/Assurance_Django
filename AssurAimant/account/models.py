@@ -13,5 +13,12 @@ class CustomUser(AbstractUser):
     region = models.CharField(max_length=15, blank=True, default="")
     children = models.IntegerField(null=True, blank=True)
 
+    # Ajouter dans CustomUser
+    user_type = models.CharField(
+    max_length=10, 
+    choices=[('client', 'Client'), ('advisor', 'Conseiller')],
+    default='client'
+    )   
+
     def __str__(self):
         return self.email

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Mes rendez-vous{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Mes rendez-vous</h1>
+    {% if appointments %}
+        <div class="list-group">
+            {% for appointment in appointments %}
+                <div class="list-group-item">
+                    <h5>{{ appointment.advisor.user.first_name }} {{ appointment.advisor.user.last_name }}</h5>
+                    <p>{{ appointment.date }} à {{ appointment.time }}</p>
+                    <span class="badge badge-{{ appointment.status }}">{{ appointment.get_status_display }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Vous n'avez pas de rendez-vous.</p>
+    {% endif %}
+</div>
+{% endblock %}

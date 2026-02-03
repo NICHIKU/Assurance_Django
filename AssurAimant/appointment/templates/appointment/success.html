@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Rendez-vous confirmé{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success">
+        <h2>Rendez-vous pris avec succès !</h2>
+        <p>Votre rendez-vous avec {{ appointment.advisor.user.first_name }} {{ appointment.advisor.user.last_name }} 
+        est prévu le {{ appointment.date }} à {{ appointment.time }}.</p>
+        <a href="{% url 'my_appointments' %}" class="btn btn-primary">Voir mes rendez-vous</a>
+    </div>
+</div>
+{% endblock %}

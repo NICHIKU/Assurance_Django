@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord conseiller{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Bonjour {{ advisor.user.first_name }}</h1>
+    
+    <h3>Rendez-vous du jour</h3>
+    {% if today_appointments %}
+        {% for appointment in today_appointments %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    {{ appointment.client.email }} - {{ appointment.time }}
+                    <span class="badge badge-{{ appointment.status }}">{{ appointment.get_status_display }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun rendez-vous aujourd'hui.</p>
+    {% endif %}
+</div>
+{% endblock %}
