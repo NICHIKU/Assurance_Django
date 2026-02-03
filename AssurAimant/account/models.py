@@ -7,6 +7,7 @@ class CustomUser(AbstractUser):
 
     bmi = models.FloatField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
+    sex = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')], blank=True)
     smoker = models.BooleanField(default=False)
     height = models.FloatField(null=True, blank=True)
     weight = models.FloatField(null=True, blank=True)
