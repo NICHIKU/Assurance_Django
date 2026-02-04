@@ -7,11 +7,11 @@ class CustomUser(AbstractUser):
 
     bmi = models.FloatField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
-    sex = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')], blank=True)
-    smoker = models.BooleanField(default=False)
+    sex = models.CharField(choices=[('male', 'Male'), ('female', 'Female')], blank=True, null=True)
+    smoker = models.BooleanField(null=True, blank=True)
     height = models.FloatField(null=True, blank=True)
     weight = models.FloatField(null=True, blank=True)
-    region = models.CharField(max_length=15, blank=True, default="")
+    region = models.CharField(max_length=15, null=True, blank=True)
     children = models.IntegerField(null=True, blank=True)
 
     def compute_bmi(self):

@@ -157,12 +157,12 @@ class AccountModificationViewTest(BaseTestCase):
             'height': 180,
             'weight': 75,
             'smoker': 'yes',
-            'sex': 'M',
-            'region': 'US'
+            'sex': 'male',
+            'region': 'northeast'
         }
         
         response = self.client.post(reverse('profile'), data)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         
         self.user.refresh_from_db()
         
@@ -174,8 +174,8 @@ class AccountModificationViewTest(BaseTestCase):
         self.assertEqual(self.user.height, 180)
         self.assertEqual(self.user.weight, 75)
         self.assertTrue(self.user.smoker)
-        self.assertEqual(self.user.sex, 'M')
-        self.assertEqual(self.user.region, 'US')
+        self.assertEqual(self.user.sex, 'male')
+        self.assertEqual(self.user.region, 'northeast')
     
     def test_modification_view_post_invalid_data(self):
         self.client.login(username='testuser@test.com', password='TestPassword123!')
@@ -205,16 +205,16 @@ class AccountModificationViewTest(BaseTestCase):
             'children': 2,
             'height': 175,
             'weight': 70,
-            'smoker': 'True',
-            'sex': 'M',
-            'region': 'FR'
+            'smoker': 'yes',
+            'sex': 'male',
+            'region': 'northeast'
         }
         
         self.client.post(reverse('profile'), data)
         self.user.refresh_from_db()
         self.assertTrue(self.user.smoker)
         
-        data['smoker'] = 'False'
+        data['smoker'] = 'no'
         self.client.post(reverse('profile'), data)
         self.user.refresh_from_db()
         self.assertFalse(self.user.smoker)
@@ -232,8 +232,8 @@ class AccountModificationViewTest(BaseTestCase):
                 'height': 175,
                 'weight': 70,
                 'smoker': 'no',
-                'sex': 'M',
-                'region': 'FR'
+                'sex': 'male',
+                'region': 'northeast'
             }
             
             self.client.post(reverse('profile'), data)
@@ -408,13 +408,13 @@ class EdgeCasesTest(BaseTestCase):
         response = self.client.get(reverse('profile'))
         
         form = response.context['form']
-        self.assertEqual(form.initial.get('age', ''), '')
-        self.assertEqual(form.initial.get('smoker', ''), '')
-        self.assertEqual(form.initial.get('height', ''), '')
-        self.assertEqual(form.initial.get('weight', ''), '')
-        self.assertEqual(form.initial.get('sex', ''), '')
-        self.assertEqual(form.initial.get('region', ''), '')
-        self.assertEqual(form.initial.get('children', ''), '')
+        self.assertIsNone(form.initial.get('age'))
+        self.assertIsNone(form.initial.get('smoker'))
+        self.assertIsNone(form.initial.get('height'))
+        self.assertIsNone(form.initial.get('weight'))
+        self.assertIsNone(form.initial.get('sex'))
+        self.assertIsNone(form.initial.get('region'))
+        self.assertIsNone(form.initial.get('children'))
     
     def test_register_username_equals_email(self):
         
@@ -481,8 +481,8 @@ class IntegrationTest(BaseTestCase):
             'height': 170,
             'weight': 65,
             'smoker': 'no',
-            'sex': 'F',
-            'region': 'UK'
+            'sex': 'female',
+            'region': 'southeast'
         }
         
         response = self.client.post(reverse('profile'), modification_data)
