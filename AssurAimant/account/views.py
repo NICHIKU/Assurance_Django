@@ -53,17 +53,19 @@ class AccountModificationView(UpdateView):
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.email = form.cleaned_data['email']
-            user.age = form.cleaned_data['age']
-            user.children = form.cleaned_data['children']
-
-            user.height = form.cleaned_data['height']
-            user.weight = form.cleaned_data['weight']
             
-            user.bmi = user.compute_bmi()
+            user.age = form.cleaned_data.get('age')
+            user.children = form.cleaned_data.get('children')
+
+            user.height = form.cleaned_data.get('height')
+            user.weight = form.cleaned_data.get('weight')
+            
+            if user.height and user.weight:
+                user.bmi = user.compute_bmi()
 
             user.smoker = (form.cleaned_data.get('smoker') == 'yes')
-            user.sex = form.cleaned_data['sex']
-            user.region = form.cleaned_data['region']
+            user.sex = form.cleaned_data.get('sex')
+            user.region = form.cleaned_data.get('region')
 
             user.save()
 
