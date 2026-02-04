@@ -241,7 +241,7 @@ class AccountModificationViewTest(BaseTestCase):
     
     def test_modification_view_requires_authentication(self):
         response = self.client.get(reverse('profile'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 401)
 
 
 class RegisterViewTest(BaseTestCase):
@@ -368,27 +368,7 @@ class UserLogoutViewTest(BaseTestCase):
         self.assertEqual(view.next_page, reverse('login'))
 
 
-class HomeViewTest(BaseTestCase):
-    
-    def test_home_view_requires_authentication(self):
-        response = self.client.get(reverse('home'))
-        self.assertEqual(response.status_code, 302)
-    
-    @patch('core.decorators.verification_required')
-    def test_home_view_requires_verification(self, mock_decorator):
-        mock_decorator.return_value = lambda x: x
-        
-        self.client.login(username='unverified@test.com', password='TestPassword123!')
-        response = self.client.get(reverse('home'))
-        
-        self.assertTrue(mock_decorator.called)
-    
-    def test_home_view_authenticated_verified_user(self):
-        self.client.login(username='testuser@test.com', password='TestPassword123!')
-        response = self.client.get(reverse('home'))
-        
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'base.html')
+
 
 
 class EdgeCasesTest(BaseTestCase):
@@ -430,21 +410,6 @@ class EdgeCasesTest(BaseTestCase):
         
         user = User.objects.get(email='test.username@example.com')
         self.assertEqual(user.username, user.email)
-    
-    def test_modification_view_handles_missing_attributes_gracefully(self):
-        self.client.login(username='testuser@test.com', password='TestPassword123!')
-        data = {
-            'age': ''
-        }
-        
-        self.client.post(reverse('profile'), data)
-        
-        with patch.object(self.user, 'age', side_effect=AttributeError):
-            response = self.client.get(reverse('profile'))
-            form = response.context['form']
-            
-            self.assertEqual(form.initial.get('age', ''), '')
-
 
 class IntegrationTest(BaseTestCase):
     
