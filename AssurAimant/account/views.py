@@ -33,13 +33,13 @@ class AccountModificationView(UpdateView):
                 'email': request.user.email,
 
                 # Nullable values :
-                'age': getattr(request.user, 'age', ''),
-                'smoker': getattr(request.user, 'smoker', ''),
-                'height': getattr(request.user, 'height', ''),
-                'weight': getattr(request.user, 'weight', ''),
-                'sex': getattr(request.user, 'sex', ''),
-                'region': getattr(request.user, 'region', ''),
-                'children': getattr(request.user, 'children', ''),
+                'age': getattr(request.user, 'age', '') if getattr(request.user, 'age', None) is not None else '',
+                'smoker': 'yes' if getattr(request.user, 'smoker', False) else 'no',
+                'height': getattr(request.user, 'height', '') if getattr(request.user, 'height', None) is not None else '',
+                'weight': getattr(request.user, 'weight', '') if getattr(request.user, 'weight', None) is not None else '',
+                'sex': getattr(request.user, 'sex', '') if getattr(request.user, 'sex', None) is not None else '',
+                'region': getattr(request.user, 'region', '') if getattr(request.user, 'region', None) is not None else '',
+                'children': getattr(request.user, 'children', '') if getattr(request.user, 'children', None) is not None else '',
             }
         )
 
@@ -53,17 +53,22 @@ class AccountModificationView(UpdateView):
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.email = form.cleaned_data['email']
-            user.age = form.cleaned_data['age']
-            user.children = form.cleaned_data['children']
-
-            user.height = form.cleaned_data['height']
-            user.weight = form.cleaned_data['weight']
             
-            user.bmi = user.compute_bmi()
-
-            user.smoker = (form.cleaned_data.get('smoker') == 'yes')
-            user.sex = form.cleaned_data['sex']
-            user.region = form.cleaned_data['region']
+            # Handle nullable fields
+            user.age = form.cleaned_data.get('age')
+            user.children = form.cleaned_data.get('children')
+            user.height = form.cleaned_data.get('height')
+            user.weight = form.cleaned_data.get('weight')
+            user.sex = form.cleaned_data.get('sex')
+            user.region = form.cleaned_data.get('region')
+            
+            # Compute BMI only if height and weight are provided
+            if user.height and user.weight:
+                user.bmi = user.compute_bmi()
+            
+            # Handle smoker field conversion
+            smoker_value = form.cleaned_data.get('smoker')
+            user.smoker = smoker_value == 'yes'
 
             user.save()
 
