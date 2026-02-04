@@ -15,6 +15,20 @@ from .views import (
 )
 class CustomUserTest(TestCase):
 
+    def test_email_uniqueness(self):
+            """Test unicité de l'email"""
+            User.objects.create_user(
+                username='user1@example.com',
+                email='user1@example.com',
+                password='pass123'
+            )
+            with self.assertRaises(Exception):
+                User.objects.create_user(
+                    username='user2@example.com',
+                    email='user1@example.com',  # Même email
+                    password='pass456'
+                )
+
     def setUp(self):
         self.basicUser = CustomUser.objects.create(
             username = "jeandupont",
@@ -483,21 +497,8 @@ class IntegrationTest(BaseTestCase):
 
 User = get_user_model()
 
-# Create your tests here.
-class CustomUserTest(TestCase):
-    def test_email_uniqueness(self):
-            """Test unicité de l'email"""
-            User.objects.create_user(
-                username='user1@example.com',
-                email='user1@example.com',
-                password='pass123'
-            )
-            with self.assertRaises(Exception):
-                User.objects.create_user(
-                    username='user2@example.com',
-                    email='user1@example.com',  # Même email
-                    password='pass456'
-                )
+
+   
 class CustomUserFormTest(TestCase):
     def test_valid_registration_form(self):
         """Test formulaire d'inscription valide"""
