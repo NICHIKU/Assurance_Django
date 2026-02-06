@@ -109,6 +109,7 @@ The `requirements.txt` file contains all necessary dependencies:
 
 3. **Install dependencies**
    ```bash
+   cd ..
    pip install -r requirements.txt
    ```
 
